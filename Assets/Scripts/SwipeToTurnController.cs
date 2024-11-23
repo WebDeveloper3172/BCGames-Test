@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI; // Pentru UI
 
 public class SwipeToTurnController : MonoBehaviour
 {
-    public GameObject swipeText; // Referința la Text-ul "Swipe to turn"
+    public GameObject[] uiElementsToDisable; // Elemente UI care trebuie dezactivate
+    public GameObject[] uiElementsToEnable;  // Elemente UI care trebuie activate
     public RectTransform finger; // Referința la deget (obiectul care se mișcă)
     public RectTransform swipeArea; // Zona pe care se mișcă degetul
     public float swipeSpeed = 10f; // Viteza de mișcare a degetului
@@ -49,10 +49,23 @@ public class SwipeToTurnController : MonoBehaviour
 
     void StartGame()
     {
-        // Ascundem UI-ul de start
-        swipeText.gameObject.SetActive(false);
-        swipeArea.gameObject.SetActive(false);
-        finger.gameObject.SetActive(false);
+        // Dezactivăm toate elementele din array-ul `uiElementsToDisable`
+        foreach (GameObject element in uiElementsToDisable)
+        {
+            if (element != null)
+            {
+                element.SetActive(false);
+            }
+        }
+
+        // Activăm toate elementele din array-ul `uiElementsToEnable`
+        foreach (GameObject element in uiElementsToEnable)
+        {
+            if (element != null)
+            {
+                element.SetActive(true);
+            }
+        }
 
         // Activăm mișcarea playerului
         playerController.EnablePlayerMovement();
