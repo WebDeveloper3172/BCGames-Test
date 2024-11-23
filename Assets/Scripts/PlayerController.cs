@@ -6,15 +6,17 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 3f; // Viteza de mișcare laterală
     public float range = 4f; // Diapazonul stânga-dreapta
     public float rotationSpeed = 2f; // Viteza de rotire la cotitură
+    public VariableJoystick variableJoystick; // Referință la joystick
 
-    private float initialX;
+    private float initialPosition; // Poziția centrală (pe X sau Z)
     private bool isTurning = false; // Verifică dacă player-ul se rotește
     private Quaternion targetRotation; // Rotația spre care trebuie să se îndrepte
+    private bool isMovingOnZ = false; // Verifică dacă playerul se mișcă pe Z (după cotire)
 
     void Start()
     {
         // Salvăm poziția inițială pe axa X
-        initialX = transform.position.x;
+        initialPosition = transform.position.x;
         targetRotation = transform.rotation; // Rotația inițială
     }
 
@@ -23,31 +25,52 @@ public class PlayerController : MonoBehaviour
         // Mișcare înainte constantă
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        // Rotație automată dacă este necesar
+        // Gestionăm rotația dacă este necesar
         if (isTurning)
         {
+            // Rotește player-ul către rotația țintă
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-            // Verificăm dacă s-a terminat rotația
+            // Verificăm dacă rotația este completă
             if (Quaternion.Angle(transform.rotation, targetRotation) < 1f)
             {
                 isTurning = false;
-                transform.rotation = targetRotation; // Aliniere finală
+                transform.rotation = targetRotation; // Asigurăm alinierea exactă
+
+                // După cotire, actualizăm axa pe care se mișcă player-ul
+                isMovingOnZ = true;
+                initialPosition = transform.position.z; // Actualizăm poziția inițială pe Z
             }
+
             return; // Blocăm mișcarea laterală în timpul rotației
         }
 
-        // Obținem input-ul pentru stânga și dreapta
-        float horizontalInput = Input.GetAxis("Horizontal");
+        // Mișcare laterală bazată pe joystick
+        float horizontalInput = variableJoystick.Horizontal;
 
-        // Calculăm noua poziție pe axa X
-        float newX = transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
+        // Dacă se mișcă pe Z (după cotire), folosim axa Z pentru mișcare
+        if (isMovingOnZ)
+        {
+            // Calculăm noua poziție pe axa Z
+            float newZ = transform.position.z + horizontalInput * moveSpeed * Time.deltaTime;
 
-        // Limităm poziția pe X în diapazonul dorit
-        newX = Mathf.Clamp(newX, initialX - range, initialX + range);
+            // Limităm poziția pe Z în diapazonul dorit
+            newZ = Mathf.Clamp(newZ, initialPosition - range, initialPosition + range);
 
-        // Aplicăm poziția nouă
-        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+            // Aplicăm poziția nouă
+            transform.position = new Vector3(transform.position.x, transform.position.y, newZ);
+        }
+        else
+        {
+            // Mișcare laterală pe X înainte de cotire
+            float newX = transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
+
+            // Limităm poziția pe X în diapazonul dorit
+            newX = Mathf.Clamp(newX, initialPosition - range, initialPosition + range);
+
+            // Aplicăm poziția nouă
+            transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
