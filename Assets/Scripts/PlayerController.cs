@@ -38,8 +38,8 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = targetRotation; // Asigurăm alinierea exactă
 
                 // După cotire, actualizăm axa pe care se mișcă player-ul
-                isMovingOnZ = true;
-                initialPosition = transform.position.z; // Actualizăm poziția inițială pe Z
+                isMovingOnZ = !isMovingOnZ; // Schimbăm axa
+                initialPosition = isMovingOnZ ? transform.position.z : transform.position.x; // Actualizăm poziția inițială
             }
 
             return; // Blocăm mișcarea laterală în timpul rotației
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         // Mișcare laterală bazată pe joystick
         float horizontalInput = variableJoystick.Horizontal;
 
-        // Dacă se mișcă pe Z (după cotire), folosim axa Z pentru mișcare
+        // Mișcare pe axa X sau Z, în funcție de direcția curentă
         if (isMovingOnZ)
         {
             // Calculăm noua poziție pe axa Z
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // Mișcare laterală pe X înainte de cotire
+            // Calculăm noua poziție pe axa X
             float newX = transform.position.x + horizontalInput * moveSpeed * Time.deltaTime;
 
             // Limităm poziția pe X în diapazonul dorit
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
             if (turnTrigger != null)
             {
                 targetRotation = Quaternion.Euler(0, turnTrigger.targetYRotation, 0);
-                isTurning = true;
+                isTurning = true; // Setăm flag-ul pentru a începe rotația
             }
         }
     }
