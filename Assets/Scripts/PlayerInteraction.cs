@@ -8,10 +8,12 @@ public class PlayerInteraction : MonoBehaviour
     public int score = 0; // Scorul inițial al jucătorului
     [SerializeField] TextMeshProUGUI Score;
 
-   
     [Header("Adjustable Values")]
     [SerializeField] private int alcoholDecrease = 20; // Cât se scade la alcool
     [SerializeField] private int moneyIncrease = 2; // Cât se adaugă la bani
+
+    public delegate void ScoreChanged(int newScore); // Delegate pentru a notifica schimbarea scorului
+    public static event ScoreChanged OnScoreChanged; // Eveniment pentru scor
 
     private void OnTriggerEnter(Collider other)
     {
@@ -36,5 +38,8 @@ public class PlayerInteraction : MonoBehaviour
         // Actualizează valoarea slider-ului
         slider.value = score;
         Score.text = score.ToString();
+
+        // Notifică alte scripturi despre schimbarea scorului
+        OnScoreChanged?.Invoke(score); // Aceasta este linia importantă care trimite scorul la ModelAndAnimationSwitcher
     }
 }

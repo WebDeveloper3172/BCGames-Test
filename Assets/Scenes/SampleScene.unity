@@ -635,6 +635,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122431843}
   m_CullTransparentMesh: 1
+--- !u!1 &142258177 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6291848880615795644, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
+  m_PrefabInstance: {fileID: 510022791}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &161857533
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,6 +809,11 @@ BoxCollider:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 35c66aebc4108194ea1785ead496aa88, type: 3}
   m_PrefabInstance: {fileID: 199038762}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &218495794 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5027945920182515386, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
+  m_PrefabInstance: {fileID: 510022791}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &223974226
 GameObject:
@@ -1209,6 +1219,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254663999}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &271987400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7281298225518208192, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
+  m_PrefabInstance: {fileID: 510022791}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &279196044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2156,6 +2171,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370164855}
   m_CullTransparentMesh: 1
+--- !u!1 &384412805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1256841003522951573, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
+  m_PrefabInstance: {fileID: 510022791}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &412939083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2714,7 +2734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6291848880615795644, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5027945920182515386, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
       propertyPath: m_IsActive
@@ -2744,6 +2764,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7281298225518208192, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2769,6 +2793,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
       insertIndex: -1
       addedObject: {fileID: 510022798}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 510022799}
   m_SourcePrefab: {fileID: 100100000, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
 --- !u!1 &510022792 stripped
 GameObject:
@@ -2809,7 +2836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  moveSpeed: 3
+  moveSpeed: 5
   range: 4
   rotationSpeed: 2
   variableJoystick: {fileID: 2104792370}
@@ -2884,7 +2911,25 @@ MonoBehaviour:
   score: 0
   Score: {fileID: 919795366}
   alcoholDecrease: 20
-  moneyIncrease: 2
+  moneyIncrease: 30
+--- !u!114 &510022799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510022792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f298e6c0679f7e4e906f9da74231173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poorModel: {fileID: 271987400}
+  casualModel: {fileID: 142258177}
+  middleModel: {fileID: 384412805}
+  blingModel: {fileID: 218495794}
+  cocktailModel: {fileID: 1591613670}
+  playerAnimator: {fileID: 510022793}
 --- !u!1 &522137939
 GameObject:
   m_ObjectHideFlags: 0
@@ -7462,6 +7507,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591307035}
   m_CullTransparentMesh: 1
+--- !u!1 &1591613670 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2108971386342365689, guid: 787a06312cbdd374db7793beb7095f67, type: 3}
+  m_PrefabInstance: {fileID: 510022791}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1607139426
 PrefabInstance:
   m_ObjectHideFlags: 0
